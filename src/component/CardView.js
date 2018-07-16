@@ -1,0 +1,18 @@
+import React, { Component } from 'react'
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
+import styles from './styles/CardViewStyles'
+
+export default class App extends Component {
+  render () {
+    return (
+      <View style={[styles.container, this.props.style]}>
+        {this.props.children}
+      </View>
+    )
+  }
+}

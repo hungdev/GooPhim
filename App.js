@@ -1,75 +1,58 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'
-import VideoPlayer from 'react-native-video-controls'
-import Orientation from 'react-native-orientation'
+import { AppRegistry, AsyncStorage } from 'react-native';
+import FlashMessage from "react-native-flash-message";
+//Redux
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import allReducers from './src/reducers'
+//Redux saga
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './src/sagas';
 
-type Props = {};
-export default class App extends Component<Props> {
+import AppContainer from './src/appNavigation/AppContainer'
+import { REHYDRATE, PURGE, persistCombineReducers, persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // or whatever storage you are using
+import { PersistGate } from 'redux-persist/es/integration/react';
 
+const sagaMiddleware = createSagaMiddleware();
+const persistConfig = {
+  key: 'root',
+  storage,
+  //sẽ persist
+  // whitelist: [                    
+  //   'accountReducer'
+  // ],
+  //ko persist
+  blacklist: [
+    'film'
+  ]
+}
 
-  // orientation
+// let reducer = persistCombineReducers(config, allReducers)
+const persistedReducer = persistReducer(persistConfig, allReducers)
 
-  componentDidMount() {
-    Orientation.addOrientationListener(this._updateOrientation);
-    Orientation.addSpecificOrientationListener(this._updateSpecificOrientation);
-  }
-
-  componentWillUnmount() {
-    Orientation.removeOrientationListener(this._updateOrientation);
-    Orientation.removeSpecificOrientationListener(this._updateSpecificOrientation);
-  }
-
-  _updateOrientation = (orientation) => this.setState({ orientation });
-  _updateSpecificOrientation = (specificOrientation) => this.setState({ specificOrientation });
-  // end config orientation
-
-
+let store = createStore(persistedReducer, undefined, compose(
+  applyMiddleware(sagaMiddleware),
+  // autoRehydrate()
+));
+let persistor = persistStore(store)
+export default class App extends Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <VideoPlayer
-          source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
-          controlTimeout={10000}
-          navigator={this.props.navigator}
-          onEnterFullscreen={Orientation.lockToLandscape}
-          onExitFullscreen={Orientation.lockToPortrait}
-        />
-      </View>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <AppContainer />
+          <FlashMessage
+            position="top"
+            animated={true}
+            duration={5000}
+            icon='warning'
+          />
+        </PersistGate>
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+sagaMiddleware.run(rootSaga);
