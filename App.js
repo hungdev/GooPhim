@@ -6,9 +6,11 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
+import VideoPlayer from 'react-native-video-controls'
+
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -20,11 +22,11 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <Icon name="ios-person" size={30} color="#4F8EF7" />
+      <View style={{flex: 1}}>
+        <VideoPlayer
+          source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
+          navigator={this.props.navigator}
+        />
       </View>
     );
   }
