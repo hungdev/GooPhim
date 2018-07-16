@@ -51,7 +51,7 @@ export default class DetailScreen extends React.Component {
               numColumns={2}
             /> : (
               <View style={{ height: Metrics.screenHeight, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Ấn vào search ở góc trái để tìm kiếm film</Text>
+                <Text>Ấn vào search ở góc phải để tìm kiếm film</Text>
               </View>
             )}
         </View>

@@ -26,6 +26,7 @@ export default StyleSheet.create({
   },
   rowCopy: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: Metrics.baseMargin
   }
 })

@@ -129,8 +129,9 @@ class MovieScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ height: Metrics.screenWidth, width: '100%' }}>
+          {srcMovie === null ? this.showMessageBar() : null}
           <VideoPlayer
-            source={{ uri: movieSelected || srcMovie || 'https://vjs.zencdn.net/v/oceans.mp4' }}
+            source={{ uri: movieSelected || srcMovie }}
             // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
             controlTimeout={10000}
             // navigator={this.props.navigator}

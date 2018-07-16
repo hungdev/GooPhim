@@ -85,7 +85,7 @@ class FshareMovieScreen extends React.Component {
               renderItem={({ item }) => this.renderMovie(item)}
             /> :
             <View style={{height: Metrics.screenHeight, justifyContent: 'center', alignItems: 'center'}}>
-              <Text>Ấn vào search ở góc trái để tìm kiếm film từ fshare</Text>
+              <Text>Ấn vào search ở góc phải để tìm kiếm film từ fshare</Text>
             </View>
           }
         </View>
