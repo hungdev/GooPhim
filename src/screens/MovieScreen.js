@@ -4,6 +4,7 @@ import { createStackNavigator, NavigationActions } from 'react-navigation'
 import styles from './styles/MovieScreenStyles'
 import { connect } from 'react-redux'
 import { getEpisode } from '../actions/filmAction'
+import { onBookMark } from '../actions/bookMarkAction'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import CustomNavbar from '../appNavigation/CustomNavBar'
 import NavigationService from '../appNavigation/NavigationService'
@@ -95,13 +96,18 @@ class MovieScreen extends React.Component {
   showMessageBar() {
     showMessage({
       message: "Video unavailable!",
-      description: "Please switch to another server",
+      description: "Please switch to another server or choose this movie from another chanel",
       type: "warning",
     })
   }
 
+  onPressBookmark() {
+    const { movieNavigate } = this.props
+    this.props.onBookMark(movieNavigate)
+  }
+
   render() {
-    const { episodeFilm } = this.props
+    const { episodeFilm, movieNavigate, bookMarkList } = this.props
 
     // const infoMovie = this.props.navigation.getParam('infoMovie')
     // const { params } = this.props.navigation.state
@@ -125,6 +131,8 @@ class MovieScreen extends React.Component {
     }
 
     let serverMovie = infoMovie && infoMovie.data
+    
+    const findBookmark = _.find(bookMarkList, {title: movieNavigate.title})
 
     return (
       <View style={styles.container}>
@@ -140,14 +148,21 @@ class MovieScreen extends React.Component {
             onError={(err) => this.showMessageBar()}
             onBack={() => this.onBackMovie()}
           />
+          <Text style={styles.txtMovieName} numberOfLines={2}>Film: {movieNavigate && movieNavigate.title}</Text>
         </View>
 
-        <ScrollView style={{ paddingBottom: Metrics.baseMargin }}>
+        <ScrollView style={styles.warpContentBelow}>
           {serverMovie && serverMovie.length > 0 ?
             <View>
-              <View style={styles.chooseEpiLabel}>
-                <Ionicons name='ios-ionitron' size={30} style={styles.iconEpisode} />
-                <Text>Choose the Sever</Text>
+              <View style={styles.rowTitleBookmark}>
+                <View style={styles.chooseEpiLabel}>
+                  <Ionicons name='ios-ionitron' size={30} style={styles.iconEpisode} />
+                  <Text>Choose the Sever</Text>
+                </View>
+                <TouchableOpacity style={styles.bookmarkRow} onPress={() => this.onPressBookmark()}>
+                  <Ionicons name='md-bookmark' size={28} style={{color: findBookmark ? 'orange' : 'grey', marginRight: Metrics.baseMargin }} />
+                  <Text style={{color: findBookmark ? 'orange' : 'grey' }}>Bookmark</Text>
+                </TouchableOpacity>
               </View>
               {infoMovie && infoMovie.data ?
                 <FlatList
@@ -189,12 +204,15 @@ function mapStateToProps(state) {
     isFetching: state.film.isFetching,
     // infoFilm: state.film.infoFilm,
     episodeFilm: state.film.episodeFilm,
+    movieNavigate: state.bookmark.movieSelected,
+    bookMarkList: state.bookmark.bookMarkList
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getEpisode: (movie) => dispatch(getEpisode(movie))
+    getEpisode: (movie) => dispatch(getEpisode(movie)),
+    onBookMark: (movie) => dispatch(onBookMark(movie)),
   }
 }
 

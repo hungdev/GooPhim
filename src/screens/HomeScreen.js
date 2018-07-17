@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation'
 
 import { connect } from 'react-redux'
 import { getInfoFilm, getPMFilms, getBLFilms, getHDOFilms, getPBHFilms, getP14Films, getXPHIMFilms } from '../actions/filmAction'
+import { onSetMovieSelected} from '../actions/bookMarkAction'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 import SearchMovie from '../component/SearchMovie'
 import ActivityIndicator from '../component/ActivityIndicator'
@@ -21,9 +22,18 @@ class HomeScreen extends React.Component {
     }
   }
 
-  // componentWillMount() {
-  //   this.props.navigation.navigate('stackGetLink')
-  // }
+  componentWillMount() {
+    // this.props.navigation.navigate('stackGetLink')
+    // Reactotron.log('kkk')
+    // fetch('https://facebook.github.io/react-native/movies.json')
+    // fetch('http://api2.goophim.com/search.php?sv=FSHARE&key=batman')
+    // .then((response) => Reactotron.log(response))
+    // .then((responseJson) => {
+    //   Reactotron.log('response ======>')
+    //   Reactotron.log(responseJson)
+    //   return responseJson;
+    // })
+  }
 
   componentWillReceiveProps(newProps) {
     this.forceUpdate()
@@ -49,6 +59,7 @@ class HomeScreen extends React.Component {
 
   onGetInfoFilm(movie) {
     this.props.getInfoFilm(movie && movie.href)
+    this.props.onSetMovieSelected(movie)
   }
 
   render() {
@@ -101,6 +112,7 @@ function mapDispatchToProps(dispatch) {
     getPBHFilms: (data) => dispatch(getPBHFilms(data)),
     getP14Films: (data) => dispatch(getP14Films(data)),
     getXPHIMFilms: (data) => dispatch(getXPHIMFilms(data)),
+    onSetMovieSelected: (data) => dispatch(onSetMovieSelected(data)),
   }
 }
 

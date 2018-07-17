@@ -5,10 +5,15 @@ export default StyleSheet.create({
   container: {
     flex: 1
   },
+  txtMovieName: {
+    marginTop: Metrics.baseMargin,
+    marginLeft: Metrics.doubleBaseMargin,
+    color: Colors.green
+  },
   chooseEpiLabel: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: Metrics.baseMargin,
+    marginTop: Metrics.smallMargin,
     paddingVertical: Metrics.baseMargin
   },
   iconEpisode: {
@@ -23,5 +28,18 @@ export default StyleSheet.create({
   rowServer: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  warpContentBelow: {
+    padding: Metrics.baseMargin,
+    paddingTop: 0
+  },
+  bookmarkRow: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  rowTitleBookmark: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 })

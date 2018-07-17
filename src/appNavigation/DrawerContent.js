@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import styles from './styles/DrawerContentStyles'
 import {NavigationActions} from 'react-navigation';
 import {ScrollView, Text, View} from 'react-native';
+import NavigationService from '../appNavigation/NavigationService'
 
 class SideMenu extends Component {
   navigateToScreen = (route) => () => {
@@ -21,7 +22,7 @@ class SideMenu extends Component {
               Section 1
             </Text>
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('FshareScreen')}>
+              <Text style={styles.navItemStyle} onPress={() => NavigationService.resetFromTo('HomeItem', 'FshareItem')}>
               Page1
               </Text>
             </View>

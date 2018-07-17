@@ -59,6 +59,35 @@ const stackHome = StackNavigator({
   transitionConfig: getSlideFromRightTransition
 })
 
+const stackBookMarks = StackNavigator({
+  bookmark: {
+    screen: Bookmarks,
+    navigationOptions: ({ navigation }) => ({
+      // header: <CustomNavBar navigation={navigation} />
+      // title: "Movie hih",
+      // headerLeft: (
+      //   <TouchableOpacity onPress={() => navigation.openDrawer()}>
+      //     <Ionicons name="ios-menu" size={30} style={{paddingHorizontal: 10}} />
+      //   </TouchableOpacity>
+      // ),
+      // headerStyle: { paddingRight: 10, paddingLeft: 10 }
+    })
+  },
+  MovieScreen: {
+    screen: MovieScreen,
+    navigationOptions: (props) => ({
+      title: "Movie",
+      tabBarVisible: false,
+      headerStyle: {
+        backgroundColor: Colors.background
+      },
+      headerTintColor: '#fff'
+    }),
+  },
+},{
+  transitionConfig: getSlideFromRightTransition
+})
+
 const stackGetLink = StackNavigator({
   FshareScreen: {
     screen: FshareScreen,
@@ -139,7 +168,7 @@ const tabNav = TabNavigator({
     }
   },
   bookMarks: {
-    screen: Bookmarks,
+    screen: stackBookMarks,
     navigationOptions: {
       tabBarLabel: "Bookmarks",
       // tabBarIcon: ({ tintColor }) => <Ionicons name={"glass"} size={30} color={tintColor} />
