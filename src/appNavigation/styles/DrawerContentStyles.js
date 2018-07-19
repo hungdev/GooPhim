@@ -22,5 +22,35 @@ export default StyleSheet.create({
     paddingLeft: Metrics.smallMargin,
     backgroundColor: Colors.transparent,
     width: Metrics.icons.medium
+  },
+  //
+  warpAvatar: {
+    paddingLeft: Metrics.doubleBaseMargin,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  avatar: {
+    height: 100,
+    width: 100,
+    marginTop: Metrics.baseMargin,
+    marginRight: Metrics.doubleBaseMargin
+  },
+  txtHi: {
+    fontSize: 20,
+    // color: Colors.green
+  },
+  warpContent: {
+    padding: Metrics.baseMargin,
+    paddingLeft: Metrics.searchBarHeight
+  },
+  warpButton: {
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: Metrics.searchBarHeight,
+  },
+  iconItem: {
+    marginRight: Metrics.baseMargin
+
   }
 })

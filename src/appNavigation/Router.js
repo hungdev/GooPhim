@@ -188,7 +188,7 @@ const tabNav = TabNavigator({
       return <Ionicons name={iconName} size={25} color={tintColor} />
     }
   }),
-  initialRouteName: 'tabHome',
+  // initialRouteName: 'tabHome',
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
   tabBarOptions: {
@@ -236,7 +236,7 @@ const PrimaryNav = createDrawerNavigator({
     },
   }
 }, {
-  // contentComponent: DrawerContent
+  contentComponent: DrawerContent
 })
 
 export default PrimaryNav
