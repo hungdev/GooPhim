@@ -16,6 +16,7 @@ import VideoPlayer from 'react-native-video-controls'
 import _ from 'lodash'
 import Orientation from 'react-native-orientation'
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
+import Modal from '../component/Modal'
 
 //https://stackoverflow.com/questions/44776798/dynamically-hide-show-header-in-react-native
 
@@ -106,13 +107,12 @@ class MovieScreen extends React.Component {
     this.props.onBookMark(movieNavigate)
   }
 
-  render() {
+  onSearchEpsiode() {
+    this.modalSearch.onOpen()
+  }
+
+  onCallBackEpisodeNum(episode, serverSelected) {
     const { episodeFilm, movieNavigate, bookMarkList } = this.props
-
-    // const infoMovie = this.props.navigation.getParam('infoMovie')
-    // const { params } = this.props.navigation.state
-    // const infoMovie = params ? params.infoMovie : null
-
     const { movieSelected, infoMovie } = this.state
 
     var srcMovie
@@ -129,10 +129,42 @@ class MovieScreen extends React.Component {
         .map((value, key) => ({ server: key, episode: value }))
         .value();
     }
+    const findMovie = _.find(arrSever, { server: serverSelected.toString() })
+    if (findMovie === undefined) {
+      alert('something went wrong!')
+    } else {
+      this.getEpisode(findMovie && findMovie.episode && findMovie.episode[parseInt(episode) - 1] && findMovie.episode[parseInt(episode) - 1].href)
+    }
+
+  }
+
+  render() {
+    const { episodeFilm, movieNavigate, bookMarkList } = this.props
+    const { movieSelected, infoMovie } = this.state
+
+    var srcMovie
+    if (['phimmoi', 'bilutv', 'phimbathu'].includes(infoMovie && infoMovie.source)) {
+      srcMovie = infoMovie && infoMovie.data && infoMovie.data[0] && infoMovie.data[0].data && infoMovie.data[0].data[0] && infoMovie.data[0].data[0].file
+    } else {
+      srcMovie = infoMovie && infoMovie.data && infoMovie.data[0] && infoMovie.data[0].file
+    }
+
+    let episodes = infoMovie && infoMovie.episodes
+    if (episodes && episodes.length > 0) {
+      var arrSever = _(episodes)
+        .groupBy(x => x.server)
+        .map((value, key) => ({ server: key, episode: value }))
+        .value();
+
+      var dataSearch = _.map(arrSever, e => ({
+        server: e.server,
+        episode: e.episode.length
+      }))
+    }
 
     let serverMovie = infoMovie && infoMovie.data
-    
-    const findBookmark = _.find(bookMarkList, {title: movieNavigate.title})
+
+    const findBookmark = _.find(bookMarkList, { title: movieNavigate.title })
 
     return (
       <View style={styles.container}>
@@ -160,8 +192,8 @@ class MovieScreen extends React.Component {
                   <Text>Choose the Sever</Text>
                 </View>
                 <TouchableOpacity style={styles.bookmarkRow} onPress={() => this.onPressBookmark()}>
-                  <Ionicons name='md-bookmark' size={28} style={{color: findBookmark ? 'orange' : 'grey', marginRight: Metrics.baseMargin }} />
-                  <Text style={{color: findBookmark ? 'orange' : 'grey' }}>Bookmark</Text>
+                  <Ionicons name='md-bookmark' size={28} style={{ color: findBookmark ? 'orange' : 'grey', marginRight: Metrics.baseMargin }} />
+                  <Text style={{ color: findBookmark ? 'orange' : 'grey' }}>Bookmark</Text>
                 </TouchableOpacity>
               </View>
               {infoMovie && infoMovie.data ?
@@ -175,10 +207,16 @@ class MovieScreen extends React.Component {
             : null}
           {
             arrSever ?
-              <TouchableOpacity style={styles.chooseEpiLabel}>
-                <Ionicons name='ios-ionitron' size={30} style={styles.iconEpisode} />
-                <Text>Choose the Episode</Text>
-              </TouchableOpacity>
+              <View style={styles.rowTitleBookmark}>
+                <View style={styles.chooseEpiLabel}>
+                  <Ionicons name='ios-ionitron' size={30} style={styles.iconEpisode} />
+                  <Text>Choose the Episode</Text>
+                </View>
+                <TouchableOpacity style={styles.bookmarkRow} onPress={() => this.onSearchEpsiode()}>
+                  <Ionicons name='ios-search' size={28} style={{ color: findBookmark ? 'orange' : 'grey', marginRight: Metrics.baseMargin }} />
+                  <Text style={{ color: 'grey' }}>Search Epsiode</Text>
+                </TouchableOpacity>
+              </View>
               : null
           }
           {arrSever ? _.map(arrSever, e => {
@@ -195,6 +233,12 @@ class MovieScreen extends React.Component {
             )
           }) : null}
         </ScrollView>
+        <Modal
+          ref={(ref) => { this.modalSearch = ref }}
+          dataSearch={dataSearch}
+          onCallBackEpisodeNum={(episode, sever) => this.onCallBackEpisodeNum(episode, sever)}
+        // dataEpisode={}
+        />
       </View>
     )
   }
