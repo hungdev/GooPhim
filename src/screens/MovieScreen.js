@@ -166,6 +166,10 @@ class MovieScreen extends React.Component {
 
     const findBookmark = _.find(bookMarkList, { title: movieNavigate.title })
 
+    Reactotron.log('srcMovie')
+    Reactotron.log(srcMovie)
+
+
     return (
       <View style={styles.container}>
         <View style={{ height: Metrics.screenWidth, width: '100%' }}>

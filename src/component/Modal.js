@@ -34,7 +34,7 @@ export default class App extends Component {
     // Reactotron.log('11111')
     // Reactotron.log(dataServer)
     var arrServerNum = []
-    if (dataSearch.length > 0) {
+    if (dataSearch && dataSearch.length > 0) {
       // Reactotron.log('22')
       for (var i = 0; i < dataSearch.length; i++) {
         arrServerNum.push(i + 1)
@@ -87,7 +87,7 @@ export default class App extends Component {
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
               <Text style={{ marginTop: 10 }}>Choose server</Text>
               <ModalDropdown
-                dropdownStyle={[styles.dropdownStyle, { height: dataSearch.length * 40 }]}
+                dropdownStyle={[styles.dropdownStyle, { height: dataSearch && dataSearch.length * 40 }]}
                 dropdownTextStyle={styles.dropdownTextStyle}
                 dropdownTextHighlightStyle={{ color: Colors.tint }}
                 options={arrServerNum}
