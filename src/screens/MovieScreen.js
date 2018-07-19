@@ -217,7 +217,7 @@ class MovieScreen extends React.Component {
                   <Text>Choose the Episode</Text>
                 </View>
                 <TouchableOpacity style={styles.bookmarkRow} onPress={() => this.onSearchEpsiode()}>
-                  <Ionicons name='ios-search' size={28} style={{ color: findBookmark ? 'orange' : 'grey', marginRight: Metrics.baseMargin }} />
+                  <Ionicons name='ios-search' size={28} style={{ color: 'grey', marginRight: Metrics.baseMargin }} />
                   <Text style={{ color: 'grey' }}>Search Epsiode</Text>
                 </TouchableOpacity>
               </View>
