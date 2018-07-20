@@ -12,7 +12,7 @@ import { Metrics, Colors } from '../themes'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class CustomNavBar extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       showSearchBar: false
@@ -25,11 +25,11 @@ class CustomNavBar extends React.Component {
   }
 
   showSearchBar = () => {
-    this.setState({showSearchBar: true})
+    this.setState({ showSearchBar: true })
   }
 
   cancelSearch = () => {
-    this.setState({showSearchBar: false})
+    this.setState({ showSearchBar: false })
     this.props.cancelSearch ? this.props.cancelSearch() : null
   }
 
@@ -37,41 +37,46 @@ class CustomNavBar extends React.Component {
     this.props.performSearch(searchTerm)
   }
 
-  onClearText () {
+  onClearText() {
     this.props.clearText()
   }
 
   onChangeTextFunc(text) {
-    const {onChangeText} = this.props
+    const { onChangeText } = this.props
     onChangeText ? onChangeText(text) : null
   }
 
-  renderMiddle () {
+  onSubmitEditingFunc(query) {
+    const { onSubmitEditing } = this.props
+    onSubmitEditing && onSubmitEditing(query)
+  }
+
+  renderMiddle() {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     if (this.state.showSearchBar) {
       return (
         <SearchBar
           // onSearch={(text) => this.onSearch(text)}
-          onSubmitEditing={(query) =>this.props.onSubmitEditing(query)}
+          onSubmitEditing={(query) => this.onSubmitEditingFunc(query)}
           onCancel={this.cancelSearch}
           onClearText={() => this.onClearText()}
-          onChangeText={(text)=> this.onChangeTextFunc(text) }
+          onChangeText={(text) => this.onChangeTextFunc(text)}
         />
       )
     } else {
       if (this.props.title) {
         return (
           <View style={styles.titleWrapper}>
-            <Text style={{color: '#fff', fontSize: 18}}>{this.props.title}</Text>
+            <Text style={{ color: '#fff', fontSize: 18 }}>{this.props.title}</Text>
           </View>
         )
       }
     }
   }
 
-  renderRightButtons () {
+  renderRightButtons() {
     if (this.state.showSearchBar) {
-      return <View style={{width: Metrics.icons.medium}} />
+      return <View style={{ width: Metrics.icons.medium }} />
     } else {
       return (
         <View style={styles.rightButtons}>
@@ -81,7 +86,7 @@ class CustomNavBar extends React.Component {
     }
   }
 
-  renderLeftButtons () {
+  renderLeftButtons() {
     if (this.state.showSearchBar) {
       return null
     } else {
@@ -97,7 +102,7 @@ class CustomNavBar extends React.Component {
     }
   }
 
-  render () {
+  render() {
     // let state = this.props.navigationState
     // let selected = state.children[state.index]
     // while (selected.hasOwnProperty('children')) {

@@ -31,6 +31,11 @@ export default class SearchBar extends Component {
     onCancel ? onCancel() : null
   }
 
+  onSubmitEditingFunc (query) {
+    const {onSubmitEditing} = this.props
+    onSubmitEditing && onSubmitEditing(query)
+  }
+
   render() {
     const { onSearch, onCancel, searchTerm, onClearText } = this.props
     const { query } = this.state
@@ -49,7 +54,7 @@ export default class SearchBar extends Component {
             value={query}
             onChangeText={(text) => this.onChangeText(text)}
             autoCapitalize='none'
-            onSubmitEditing={() => this.props.onSubmitEditing(query)}
+            onSubmitEditing={() => this.onSubmitEditingFunc(query)}
             returnKeyType={'search'}
             autoCorrect={false}
             selectionColor={Colors.snow}
