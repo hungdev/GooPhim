@@ -77,6 +77,7 @@ export default class App extends Component {
         animationIn="slideInLeft"
         animationOut="slideOutRight"
         onBackdropPress={() => this.setState({ isVisible: false, idx: '', value: '', episodeNum: '' })}
+        onBackButtonPress={() => this.setState({ isVisible: false, idx: '', value: '', episodeNum: '' })}
       >
 
         <View style={styles.modalContent}>

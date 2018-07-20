@@ -68,14 +68,19 @@ class MovieScreen extends React.Component {
     this.setState({ isGetEpisode: true })
   }
 
-  renderEpisodes(episode, index) {
-    const { episodeSelected } = this.state
+  onPressEpisodeMovie(episode, index, server) {
+    this.getEpisode(episode.href)
+    this.setState({ episodeSelected: index + 1, serverSelected: server})
+  }
+
+  renderEpisodes(episode, index, server) {
+    const { episodeSelected, serverSelected } = this.state
     return (
       <View>
-        <TouchableOpacity style={[styles.btnEpisode, { backgroundColor: episodeSelected && parseInt(episodeSelected) - 1 === index ? 'green' : Colors.silver }]}
-          onPress={() => this.getEpisode(episode.href)}
-          // onPress={() => alert(index)}
-          >
+        <TouchableOpacity style={[styles.btnEpisode,
+        { backgroundColor: episodeSelected && parseInt(episodeSelected) - 1 === index && serverSelected && parseInt(serverSelected) === parseInt(server) ? 'green' : Colors.silver }]}
+          onPress={() => this.onPressEpisodeMovie(episode, index, server)}
+        >
           <Text>{episode.episode}</Text>
         </TouchableOpacity>
       </View>
@@ -116,6 +121,7 @@ class MovieScreen extends React.Component {
   }
 
   onCallBackEpisodeNum(episode, serverSelected) {
+    // alert(serverSelected)
     const { episodeFilm, movieNavigate, bookMarkList } = this.props
     const { movieSelected, infoMovie } = this.state
     this.setState({ episodeSelected: episode, serverSelected })
@@ -234,13 +240,15 @@ class MovieScreen extends React.Component {
               : null
           }
           {arrSever ? _.map(arrSever, e => {
+            // Reactotron.log('ddddd ')
+            // Reactotron.log(e)
             return (
               <View style={styles.rowServer}>
                 <Text style={[styles.btnEpisode, { backgroundColor: Colors.green }]}>Sever {e.server}</Text>
                 {e && e.episode ? <FlatList
                   style={{}}
                   data={e.episode}
-                  renderItem={({ item, index }) => this.renderEpisodes(item, index)}
+                  renderItem={({ item, index }) => this.renderEpisodes(item, index, e.server)}
                   horizontal
                   ref={(ref) => { this.flatListRef = ref; }}
                   getItemLayout={this.getItemLayout}
