@@ -182,16 +182,16 @@ class MovieScreen extends React.Component {
 
     const findBookmark = _.find(bookMarkList, { title: movieNavigate.title })
 
-    Reactotron.log('srcMovie')
-    Reactotron.log(srcMovie)
+    // Reactotron.log('srcMovie')
+    // Reactotron.log(srcMovie)
 
 
     return (
       <View style={styles.container}>
         <View style={{ height: Metrics.screenWidth, width: '100%' }}>
-          {srcMovie === null ? this.showMessageBar() : null}
+          { [null, undefined].includes(srcMovie) ? this.showMessageBar() : null}
           <VideoPlayer
-            source={{ uri: movieSelected || srcMovie }}
+            source={{ uri: movieSelected || srcMovie || 'https://vjs.zencdn.net/v/oceans.mp4' }}
             // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
             controlTimeout={10000}
             // navigator={this.props.navigator}
@@ -200,7 +200,10 @@ class MovieScreen extends React.Component {
             onError={(err) => this.showMessageBar()}
             onBack={() => this.onBackMovie()}
           />
-          <Text style={styles.txtMovieName} numberOfLines={2}>Film: {movieNavigate && movieNavigate.title}</Text>
+          <Text style={styles.txtMovieName} numberOfLines={2}>
+          Film: {movieNavigate && movieNavigate.title}
+          {srcMovie === undefined ? 'Example video, please back to search another movie' : null}
+          </Text>
         </View>
 
         <ScrollView style={styles.warpContentBelow}>
