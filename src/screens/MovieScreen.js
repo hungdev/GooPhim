@@ -68,10 +68,14 @@ class MovieScreen extends React.Component {
     this.setState({ isGetEpisode: true })
   }
 
-  renderEpisodes(episode) {
+  renderEpisodes(episode, index) {
+    const { episodeSelected } = this.state
     return (
       <View>
-        <TouchableOpacity style={styles.btnEpisode} onPress={() => this.getEpisode(episode.href)}>
+        <TouchableOpacity style={[styles.btnEpisode, { backgroundColor: episodeSelected && parseInt(episodeSelected) - 1 === index ? 'green' : Colors.silver }]}
+          onPress={() => this.getEpisode(episode.href)}
+          // onPress={() => alert(index)}
+          >
           <Text>{episode.episode}</Text>
         </TouchableOpacity>
       </View>
@@ -114,7 +118,7 @@ class MovieScreen extends React.Component {
   onCallBackEpisodeNum(episode, serverSelected) {
     const { episodeFilm, movieNavigate, bookMarkList } = this.props
     const { movieSelected, infoMovie } = this.state
-
+    this.setState({ episodeSelected: episode, serverSelected })
     var srcMovie
     if (['phimmoi', 'bilutv', 'phimbathu'].includes(infoMovie && infoMovie.source)) {
       srcMovie = infoMovie && infoMovie.data && infoMovie.data[0] && infoMovie.data[0].data && infoMovie.data[0].data[0] && infoMovie.data[0].data[0].file
@@ -136,11 +140,17 @@ class MovieScreen extends React.Component {
       this.getEpisode(findMovie && findMovie.episode && findMovie.episode[parseInt(episode) - 1] && findMovie.episode[parseInt(episode) - 1].href)
     }
 
+    this.flatListRef.scrollToIndex({ animated: true, index: episode });
+
   }
+
+  getItemLayout = (data, index) => (
+    { length: 50, offset: 50 * index, index }
+  )
 
   render() {
     const { episodeFilm, movieNavigate, bookMarkList } = this.props
-    const { movieSelected, infoMovie } = this.state
+    const { movieSelected, infoMovie, episodeSelected } = this.state
 
     var srcMovie
     if (['phimmoi', 'bilutv', 'phimbathu'].includes(infoMovie && infoMovie.source)) {
@@ -230,8 +240,11 @@ class MovieScreen extends React.Component {
                 {e && e.episode ? <FlatList
                   style={{}}
                   data={e.episode}
-                  renderItem={({ item }) => this.renderEpisodes(item)}
+                  renderItem={({ item, index }) => this.renderEpisodes(item, index)}
                   horizontal
+                  ref={(ref) => { this.flatListRef = ref; }}
+                  getItemLayout={this.getItemLayout}
+                  initialScrollIndex={0}
                 /> : null}
               </View>
             )
