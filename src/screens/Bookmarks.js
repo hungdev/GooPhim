@@ -12,15 +12,41 @@ import CardView from '../component/CardView'
 import ActivityIndicator from '../component/ActivityIndicator'
 import { Metrics } from '../themes'
 import CustomNavBar from '../appNavigation/CustomNavBar'
+import _ from 'lodash'
 
 class Bookmarks extends React.Component {
+
   static navigationOptions({ navigation }) {
     return {
       header: <CustomNavBar
         navigation={navigation}
-        onSubmitEditing={(text) => navigation.state.params.handleInput(text)} />
+        onChangeText={(text) => navigation.state.params.handleInput(text)} />
     }
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      queryData: ''
+    };
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      handleInput: (text) => this.onSearch(text)
+    })
+  }
+
+  onSearch(query) {
+    const { bookMarkList } = this.props
+    let resQuery = _.filter(bookMarkList, e => {
+      if (e.title.toLowerCase().includes(query.toLowerCase())) {
+        return e
+      }
+    })
+    this.setState({queryData: resQuery})
+  }
+
   onPressButton() {
     Alert.alert(
       'Thông báo: ',
@@ -32,13 +58,13 @@ class Bookmarks extends React.Component {
     )
   }
 
-  onRemoveBookmark (movie) {
+  onRemoveBookmark(movie) {
     Alert.alert(
       'Thông báo:',
       'Bạn có thực sự muốn xóa phim này khỏi danh sách bookmark không?',
       [
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: () => this.props.onBookMark(movie)},
+        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'OK', onPress: () => this.props.onBookMark(movie) },
       ],
       { cancelable: false }
     )
@@ -76,15 +102,16 @@ class Bookmarks extends React.Component {
 
   render() {
     const { bookMarkList } = this.props
-    Reactotron.log('============>bookMarkList')
-    Reactotron.log(bookMarkList)
+    const { queryData } = this.state
+    // Reactotron.log('============>bookMarkList')
+    // Reactotron.log(bookMarkList)
     return (
       <View style={styles.container}>
         <View style={{ marginTop: Metrics.navBarHeight, paddingTop: Metrics.smallMargin }}>
           {bookMarkList && bookMarkList.length > 0 ?
             <FlatList
               style={{ paddingHorizontal: Metrics.baseMargin }}
-              data={bookMarkList}
+              data={queryData || bookMarkList}
               renderItem={({ item }) => this.renderMovie(item)}
             /> :
             <View style={{ height: Metrics.screenHeight, justifyContent: 'center', alignItems: 'center' }}>

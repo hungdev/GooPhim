@@ -23,7 +23,7 @@ export default class SearchBar extends Component {
   onChangeText(text) {
     const { onChangeText } = this.props
     this.setState({ query: text })
-    onChangeText ? onChangeText() : null
+    onChangeText ? onChangeText(text) : null
   }
 
   onCancelPress() {

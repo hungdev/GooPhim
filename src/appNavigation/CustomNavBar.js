@@ -41,6 +41,11 @@ class CustomNavBar extends React.Component {
     this.props.clearText()
   }
 
+  onChangeTextFunc(text) {
+    const {onChangeText} = this.props
+    onChangeText ? onChangeText(text) : null
+  }
+
   renderMiddle () {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     if (this.state.showSearchBar) {
@@ -50,6 +55,7 @@ class CustomNavBar extends React.Component {
           onSubmitEditing={(query) =>this.props.onSubmitEditing(query)}
           onCancel={this.cancelSearch}
           onClearText={() => this.onClearText()}
+          onChangeText={(text)=> this.onChangeTextFunc(text) }
         />
       )
     } else {

@@ -19,7 +19,7 @@ export default class DetailScreen extends React.Component {
     return (
       <CardView style={styles.cardView}>
         <Text>
-          App được phát tiển từ <Text style={{ color: Colors.fire }}>https://goophim.com</Text> và được sự đồng ý của admin GooPhim
+          App được phát tiển từ <Text style={{ color: Colors.fire }}>http://goophim.com</Text> và được sự đồng ý của admin GooPhim
         </Text>
         <Text>
           Thanks ad đẹp zai GooPhim <Text style={{ color: Colors.fire }}>Nguyễn Tiến Huy</Text>
@@ -42,7 +42,7 @@ export default class DetailScreen extends React.Component {
           <Text>(Ấn vào mail để gửi mail)</Text>
         </TouchableOpacity>
         <Text>
-          Version 1.0.0
+          Version 1.0.1
         </Text>
         <Text>
           Develop by <Text style={{ color: Colors.green }}>Cee</Text>
