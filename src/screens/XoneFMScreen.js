@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, View, Text, AppRegistry, Alert, FlatList, TouchableOpacity, Image } from 'react-native'
+import { Button, View, Text, AppRegistry, Alert, FlatList, TouchableOpacity, Image, Animated, Easing } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
-import styles from './styles/BookmarksStyles'
+import styles from './styles/XoneFMScreenStyles'
 import { connect } from 'react-redux'
 import { onBookMark, onSetMovieSelected } from '../actions/bookMarkAction'
 import { getInfoFilm } from '../actions/filmAction'
@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Reactotron from 'reactotron-react-native'
 import CardView from '../component/CardView'
 import ActivityIndicator from '../component/ActivityIndicator'
-import { Metrics } from '../themes'
+import { Metrics, Images } from '../themes'
 import CustomNavBar from '../appNavigation/CustomNavBar'
 import _ from 'lodash'
 import { Player } from 'react-native-audio-streaming';
@@ -21,29 +21,26 @@ class Bookmarks extends React.Component {
     return {
       header: <CustomNavBar
         navigation={navigation}
-        onChangeText={(text) => navigation.state.params.handleInput(text)} />
+        isHideRightButton />
     }
   }
+
 
   constructor(props) {
     super(props);
     this.state = {
-      queryData: ''
+      spinValue: new Animated.Value(0),
     };
   }
 
 
   render() {
-    const { bookMarkList } = this.props
-    const { queryData } = this.state
-    // Reactotron.log('============>bookMarkList')
-    // Reactotron.log(bookMarkList)
     return (
       <View style={styles.container}>
-        <View style={{ marginTop: Metrics.navBarHeight, paddingTop: Metrics.smallMargin }}>
-          <Text>hhh</Text>
-          <Player url={"http://118.69.80.90:8000/live/"} />
+        <View style={styles.warpImage}>
+          <Image source={Images.logoXoneFm} style={styles.logoXoneFm} />
         </View>
+        <Player url={"http://118.69.80.90:8000/live/"} />
       </View>
     )
   }

@@ -63,7 +63,7 @@ class SideMenu extends Component {
               <Ionicons name="ios-bookmarks" size={30} style={styles.iconItem} />
               <Text>Bookmark</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => NavigationService.navigate('XoneFM')} style={styles.warpButton}>
+            <TouchableOpacity onPress={() => NavigationService.navigate('XoneFMItem')} style={styles.warpButton}>
               <Ionicons name="ios-bug" size={30} style={styles.iconItem} />
               <Text>XoneFM</Text>
             </TouchableOpacity>

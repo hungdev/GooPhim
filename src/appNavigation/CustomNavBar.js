@@ -91,7 +91,7 @@ class CustomNavBar extends React.Component {
       return null
     } else {
       return (
-        <TouchableOpacity onPress={this.openDrawer} style={{paddingRight: 20, paddingLeft: 10}}>
+        <TouchableOpacity onPress={this.openDrawer} style={{ paddingRight: 20, paddingLeft: 10 }}>
           <Icon name='ios-menu-outline'
             size={Metrics.icons.medium}
             color={Colors.snow}
@@ -103,12 +103,7 @@ class CustomNavBar extends React.Component {
   }
 
   render() {
-    // let state = this.props.navigationState
-    // let selected = state.children[state.index]
-    // while (selected.hasOwnProperty('children')) {
-    //   state = selected
-    //   selected = selected.children[selected.index]
-    // }
+    const { isHideRightButton } = this.props
 
     const containerStyle = [
       styles.container,
@@ -121,7 +116,7 @@ class CustomNavBar extends React.Component {
       <View style={containerStyle}>
         {this.renderLeftButtons()}
         {this.renderMiddle()}
-        {this.renderRightButtons()}
+        {!isHideRightButton ? this.renderRightButtons() : null}
       </View>
     )
   }

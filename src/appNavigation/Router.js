@@ -9,7 +9,7 @@ import DetailsScreen from '../screens/DetailsScreen'
 import Bookmarks from '../screens/Bookmarks'
 import FshareMovieScreen from '../screens/FshareMovieScreen'
 import AboutScreen from '../screens/AboutScreen'
-import XoneFM from '../screens/XoneFM'
+import XoneFMScreen from '../screens/XoneFMScreen'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import CustomNavBar from './CustomNavBar'
 import DrawerContent from './DrawerContent'
@@ -132,18 +132,25 @@ const stackAbout = StackNavigator({
       ),
       headerStyle: { paddingRight: 10, paddingLeft: 10 }
     })
-  },
-  // FshareMovieScreen: {
-  //   screen: FshareMovieScreen,
-  //   navigationOptions: (props) => ({
-  //     title: "Movie",
-  //     tabBarVisible: false,
-  //     headerStyle: {
-  //       backgroundColor: Colors.background
-  //     },
-  //     headerTintColor: '#fff'
-  //   }),
-  // },
+  }
+},{
+  transitionConfig: getSlideFromRightTransition
+})
+
+const stackXoneFm = StackNavigator({
+  XoneFM: {
+    screen: XoneFMScreen,
+    navigationOptions: ({ navigation }) => ({
+      // header: <CustomNavBar navigation={navigation} />
+      title: "About",
+      headerLeft: (
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Ionicons name="ios-menu" size={30} style={{paddingHorizontal: 10}} />
+        </TouchableOpacity>
+      ),
+      headerStyle: { paddingRight: 10, paddingLeft: 10 }
+    })
+  }
 },{
   transitionConfig: getSlideFromRightTransition
 })
@@ -236,8 +243,8 @@ const PrimaryNav = createDrawerNavigator({
       drawerIcon: ({ tintColor }) => <Ionicons name="ios-bug" size={24} />
     },
   },
-  XoneFM: {
-    screen: XoneFM,
+  XoneFMItem: {
+    screen: stackXoneFm,
     navigationOptions: {
       drawerLabel: "About",
       drawerIcon: ({ tintColor }) => <Ionicons name="ios-bug" size={24} />

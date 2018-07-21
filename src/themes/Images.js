@@ -13,7 +13,8 @@ const images = {
   // logoFull: require('../Images/logo-full.png'),
   // personUnknownMale: require('../Images/person-unknown-male.png')
   icMovieLogo: require('../image/movie_logo.gif'),
-  explodingKittens: require('../image/explodingKittens.png')
+  explodingKittens: require('../image/explodingKittens.png'),
+  logoXoneFm: require('../image/logo_xonefm.png'),
 }
 
 export default images
