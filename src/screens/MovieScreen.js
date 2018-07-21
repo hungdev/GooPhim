@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, View, Text, FlatList, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
+import { Button, View, Text, FlatList, Image, TouchableOpacity, BackHandler, ScrollView } from 'react-native'
 import { createStackNavigator, NavigationActions } from 'react-navigation'
 import styles from './styles/MovieScreenStyles'
 import { connect } from 'react-redux'
@@ -30,6 +30,7 @@ class MovieScreen extends React.Component {
     this.state = {
       movieSelected: ''
     };
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,8 +46,13 @@ class MovieScreen extends React.Component {
     const { params } = this.props.navigation.state
     const infoMovie = params ? params.infoMovie : null
     this.setState({ infoMovie })
+
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
+  handleBackButtonClick() {
+    Orientation.lockToPortrait()
+}
   // orientation
 
   componentDidMount() {
@@ -57,11 +63,14 @@ class MovieScreen extends React.Component {
   componentWillUnmount() {
     Orientation.removeOrientationListener(this._updateOrientation);
     Orientation.removeSpecificOrientationListener(this._updateSpecificOrientation);
+    
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
   _updateOrientation = (orientation) => this.setState({ orientation });
   _updateSpecificOrientation = (specificOrientation) => this.setState({ specificOrientation });
   // end config orientation
+  
 
   getEpisode(movie) {
     this.props.getEpisode(movie)
