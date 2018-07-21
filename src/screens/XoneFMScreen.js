@@ -29,18 +29,22 @@ class Bookmarks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      spinValue: new Animated.Value(0),
     };
   }
 
+  onplay() {
+    this.playerAudio._onPress()
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.warpImage}>
-          <Image source={Images.logoXoneFm} style={styles.logoXoneFm} />
+          <TouchableOpacity onPress={() => this.onplay()}>
+            <Image source={Images.logoXoneFm} style={styles.logoXoneFm} />
+          </TouchableOpacity>
         </View>
-        <Player url={"http://118.69.80.90:8000/live/"} />
+        <Player url={"http://118.69.80.90:8000/live/"} ref={ref => this.playerAudio = ref} />
       </View>
     )
   }
