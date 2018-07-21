@@ -9,6 +9,7 @@ import DetailsScreen from '../screens/DetailsScreen'
 import Bookmarks from '../screens/Bookmarks'
 import FshareMovieScreen from '../screens/FshareMovieScreen'
 import AboutScreen from '../screens/AboutScreen'
+import XoneFM from '../screens/XoneFM'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import CustomNavBar from './CustomNavBar'
 import DrawerContent from './DrawerContent'
@@ -230,6 +231,13 @@ const PrimaryNav = createDrawerNavigator({
   },
   AboutScreen: {
     screen: stackAbout,
+    navigationOptions: {
+      drawerLabel: "About",
+      drawerIcon: ({ tintColor }) => <Ionicons name="ios-bug" size={24} />
+    },
+  },
+  XoneFM: {
+    screen: XoneFM,
     navigationOptions: {
       drawerLabel: "About",
       drawerIcon: ({ tintColor }) => <Ionicons name="ios-bug" size={24} />
