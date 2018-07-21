@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { ScrollView, Text, View, Image, TouchableOpacity, Platform } from 'react-native';
 import styles from './styles/DrawerContentStyles'
 import { NavigationActions } from 'react-navigation';
-import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import NavigationService from '../appNavigation/NavigationService'
-import { Images } from '../themes'
+import { Images, Colors } from '../themes'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import Toast from 'react-native-root-toast'
 
 class SideMenu extends Component {
   navigateToScreen = (route) => () => {
@@ -17,8 +18,23 @@ class SideMenu extends Component {
 
   //NavigationService.navigate('Main')
 
-  onNavigate (screen) {
+  onNavigate(screen) {
     NavigationService.navigate(screen)
+    this.props.navigation.closeDrawer()
+  }
+
+  onNavigateFshareMovie() {
+    Platform.OS === 'ios' ? (
+      Toast.show('Currently, this feature is not support fshare movie!', {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.CENTER,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+        backgroundColor: Colors.green
+      })
+    ) : NavigationService.navigate('FshareItem')
     this.props.navigation.closeDrawer()
   }
 
@@ -35,7 +51,7 @@ class SideMenu extends Component {
               <Ionicons name="ios-home" size={30} style={styles.iconItem} />
               <Text>Home</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => NavigationService.navigate('FshareItem')} style={styles.warpButton}>
+            <TouchableOpacity onPress={() => this.onNavigateFshareMovie()} style={styles.warpButton}>
               <Ionicons name="logo-foursquare" size={30} style={styles.iconItem} />
               <Text>Fshare Movie</Text>
             </TouchableOpacity>
