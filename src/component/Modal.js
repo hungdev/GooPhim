@@ -101,7 +101,7 @@ export default class App extends Component {
             </View>
             {idx || idx === 0 ? <View style={{ marginTop: 20 }}>
               <Text>Enter the number episode movie</Text>
-              <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ textAlignVertical: 'center', fontSize: 18, marginRight: 15 }}>{`0 < `}</Text>
                 <TextInput
                   style={styles.inputEp}

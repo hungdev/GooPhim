@@ -91,7 +91,7 @@ class CustomNavBar extends React.Component {
       return null
     } else {
       return (
-        <TouchableOpacity onPress={this.openDrawer}>
+        <TouchableOpacity onPress={this.openDrawer} style={{paddingRight: 20, paddingLeft: 10}}>
           <Icon name='ios-menu-outline'
             size={Metrics.icons.medium}
             color={Colors.snow}
