@@ -209,7 +209,7 @@ class MovieScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={{ height: Metrics.screenWidth, width: '100%', borderWidth: 1, borderColor: 'red' }}>
+        <View style={{ height: Metrics.screenWidth, width: '100%' }}>
           {[null, undefined].includes(srcMovie) ? this.showMessageBar() : null}
           <VideoPlayer
             source={{ uri: movieSelected || srcMovie || 'https://vjs.zencdn.net/v/oceans.mp4' }}
