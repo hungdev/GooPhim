@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, View, Text, FlatList, Image, TouchableOpacity, StyleSheet, Alert, Clipboard } from 'react-native'
+import { Button, View, Text, FlatList, Image, TouchableOpacity, StatusBar, Alert, Clipboard, BackHandler } from 'react-native'
 import { createStackNavigator, NavigationActions } from 'react-navigation'
 import styles from './styles/FshareMovieScreenStyles'
 import { connect } from 'react-redux'
@@ -29,6 +29,7 @@ class MovieScreen extends React.Component {
     this.state = {
       movieSelected: ''
     };
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,6 +57,13 @@ class MovieScreen extends React.Component {
           { cancelable: false }
         ) : null
     }
+
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  handleBackButtonClick() {
+    Orientation.lockToPortrait()
+    StatusBar.setHidden(false);
   }
 
   // orientation
@@ -68,6 +76,8 @@ class MovieScreen extends React.Component {
   componentWillUnmount() {
     Orientation.removeOrientationListener(this._updateOrientation);
     Orientation.removeSpecificOrientationListener(this._updateSpecificOrientation);
+
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
   _updateOrientation = (orientation) => this.setState({ orientation });
@@ -78,6 +88,7 @@ class MovieScreen extends React.Component {
   onBackMovie() {
     this.props.navigation.goBack()
     Orientation.lockToPortrait()
+    StatusBar.setHidden(false)
   }
 
 
@@ -102,6 +113,16 @@ class MovieScreen extends React.Component {
     })
   }
 
+  onEnterFullscreen() {
+    Orientation.lockToLandscape()
+    StatusBar.setHidden(true);
+  }
+
+  onExitFullscreen() {
+    Orientation.lockToPortrait()
+    StatusBar.setHidden(false);
+  }
+
 
   render() {
     const { infoFshareRes } = this.props
@@ -119,8 +140,8 @@ class MovieScreen extends React.Component {
             // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
             controlTimeout={10000}
             // navigator={this.props.navigator}
-            onEnterFullscreen={Orientation.lockToLandscape}
-            onExitFullscreen={Orientation.lockToPortrait}
+            onEnterFullscreen={() => this.onEnterFullscreen()}
+            onExitFullscreen={() => this.onExitFullscreen()}
             onError={(err) => this.showMessageBar()}
             onBack={() => this.onBackMovie()}
           />

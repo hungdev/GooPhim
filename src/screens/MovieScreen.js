@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, View, Text, FlatList, Image, TouchableOpacity, BackHandler, ScrollView } from 'react-native'
+import { Button, View, Text, FlatList, Image, TouchableOpacity, BackHandler, ScrollView, StatusBar } from 'react-native'
 import { createStackNavigator, NavigationActions } from 'react-navigation'
 import styles from './styles/MovieScreenStyles'
 import { connect } from 'react-redux'
@@ -52,7 +52,8 @@ class MovieScreen extends React.Component {
 
   handleBackButtonClick() {
     Orientation.lockToPortrait()
-}
+    StatusBar.setHidden(false);
+  }
   // orientation
 
   componentDidMount() {
@@ -63,14 +64,14 @@ class MovieScreen extends React.Component {
   componentWillUnmount() {
     Orientation.removeOrientationListener(this._updateOrientation);
     Orientation.removeSpecificOrientationListener(this._updateSpecificOrientation);
-    
+
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
   _updateOrientation = (orientation) => this.setState({ orientation });
   _updateSpecificOrientation = (specificOrientation) => this.setState({ specificOrientation });
   // end config orientation
-  
+
 
   getEpisode(movie) {
     this.props.getEpisode(movie)
@@ -79,7 +80,7 @@ class MovieScreen extends React.Component {
 
   onPressEpisodeMovie(episode, index, server) {
     this.getEpisode(episode.href)
-    this.setState({ episodeSelected: index + 1, serverSelected: server})
+    this.setState({ episodeSelected: index + 1, serverSelected: server })
   }
 
   renderEpisodes(episode, index, server) {
@@ -109,6 +110,7 @@ class MovieScreen extends React.Component {
   onBackMovie() {
     this.props.navigation.goBack()
     Orientation.lockToPortrait()
+    StatusBar.setHidden(false);
   }
 
 
@@ -163,6 +165,16 @@ class MovieScreen extends React.Component {
     { length: 50, offset: 50 * index, index }
   )
 
+  onEnterFullscreen() {
+    Orientation.lockToLandscape()
+    StatusBar.setHidden(true);
+  }
+
+  onExitFullscreen() {
+    Orientation.lockToPortrait()
+    StatusBar.setHidden(false);
+  }
+
   render() {
     const { episodeFilm, movieNavigate, bookMarkList } = this.props
     const { movieSelected, infoMovie, episodeSelected } = this.state
@@ -197,23 +209,23 @@ class MovieScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={{ height: Metrics.screenWidth, width: '100%' }}>
-          { [null, undefined].includes(srcMovie) ? this.showMessageBar() : null}
+        <View style={{ height: Metrics.screenWidth, width: '100%', borderWidth: 1, borderColor: 'red' }}>
+          {[null, undefined].includes(srcMovie) ? this.showMessageBar() : null}
           <VideoPlayer
             source={{ uri: movieSelected || srcMovie || 'https://vjs.zencdn.net/v/oceans.mp4' }}
             // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
             controlTimeout={10000}
             // navigator={this.props.navigator}
-            onEnterFullscreen={Orientation.lockToLandscape}
-            onExitFullscreen={Orientation.lockToPortrait}
+            onEnterFullscreen={() => this.onEnterFullscreen()}
+            onExitFullscreen={() => this.onExitFullscreen()}
             onError={(err) => this.showMessageBar()}
             onBack={() => this.onBackMovie()}
           />
-          <Text style={styles.txtMovieName} numberOfLines={2}>
+        </View>
+        <Text style={styles.txtMovieName} numberOfLines={2}>
           Film: {movieNavigate && movieNavigate.title}
           {srcMovie === undefined ? 'Example video, please back to search another movie' : null}
-          </Text>
-        </View>
+        </Text>
 
         <ScrollView style={styles.warpContentBelow}>
           {serverMovie && serverMovie.length > 0 ?
