@@ -42,7 +42,7 @@ export default class DetailScreen extends React.Component {
           <Text>(Ấn vào mail để gửi mail)</Text>
         </TouchableOpacity>
         <Text>
-          Version 1.0.1
+          Version 1.0.2
         </Text>
         <Text>
           Develop by <Text style={{ color: Colors.green }}>Cee</Text>
