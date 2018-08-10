@@ -7,7 +7,8 @@ export default StyleSheet.create({
     flex: 1
   },
   warpImage: {
-    marginTop: Metrics.navBarHeight
+    marginTop: Metrics.screenHeight / 3 + Metrics.navBarHeight
+
   },
   warpContent: {
     paddingTop: Metrics.smallMargin,
@@ -20,7 +21,6 @@ export default StyleSheet.create({
   logoXoneFm: {
     height: 100, 
     width: '100%',
-    marginTop: Metrics.screenHeight / 3
   },
   warpPlay: {
     width: Metrics.screenWidth,

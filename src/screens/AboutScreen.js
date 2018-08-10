@@ -19,7 +19,7 @@ export default class DetailScreen extends React.Component {
     return (
       <CardView style={styles.cardView}>
         <Text>
-          App được phát tiển từ <Text style={{ color: Colors.fire }}>http://goophim.com</Text> và được sự đồng ý của admin GooPhim
+          App được phát tiển từ <Text style={{ color: Colors.fire }}>http://goophim.com</Text>
         </Text>
         <Text>
           Thanks ad đẹp zai GooPhim <Text style={{ color: Colors.fire }}>Nguyễn Tiến Huy</Text>
