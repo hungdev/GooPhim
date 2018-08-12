@@ -1,3 +1,4 @@
-Front end mobile app for goophim
+http://nightlies.videolan.org/build/iOS/
+download cái mới nhất rồi giải nén nó ra, tạo 1 folder tên `vlcKit` ở root folder ( cùng cấp với folder ios )
 
-Application development is based on passion
+rồi paste cái file download tên `MobileVLCKit.framework` ở trên vào.
