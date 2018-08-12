@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, View, Text, FlatList, Image, TouchableOpacity, BackHandler, ScrollView, StatusBar } from 'react-native'
+import { Button, View, Text, FlatList, Image, TouchableOpacity, BackHandler, ScrollView, StatusBar, Platform } from 'react-native'
 import { createStackNavigator, NavigationActions } from 'react-navigation'
 import styles from './styles/MovieScreenStyles'
 import { connect } from 'react-redux'
@@ -17,6 +17,7 @@ import _ from 'lodash'
 import Orientation from 'react-native-orientation'
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
 import Modal from '../component/Modal'
+import { VLCPlayer, VlCPlayerView } from 'react-native-yz-vlcplayer';
 
 //https://stackoverflow.com/questions/44776798/dynamically-hide-show-header-in-react-native
 
@@ -203,10 +204,6 @@ class MovieScreen extends React.Component {
 
     const findBookmark = _.find(bookMarkList, { title: movieNavigate.title })
 
-    // Reactotron.log('srcMovie')
-    // Reactotron.log(srcMovie)
-
-
     return (
       <View style={styles.container}>
         <View style={{ height: Metrics.screenWidth, width: '100%' }}>
@@ -218,7 +215,7 @@ class MovieScreen extends React.Component {
             // navigator={this.props.navigator}
             onEnterFullscreen={() => this.onEnterFullscreen()}
             onExitFullscreen={() => this.onExitFullscreen()}
-            onError={(err) => this.showMessageBar()}
+            // onError={(err) => this.showMessageBar()}
             onBack={() => this.onBackMovie()}
           />
         </View>

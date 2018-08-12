@@ -25,7 +25,7 @@ const persistConfig = {
   // ],
   //ko persist
   blacklist: [
-    'film'
+    // 'film'
   ]
 }
 
