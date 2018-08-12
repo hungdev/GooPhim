@@ -28,5 +28,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: Metrics.baseMargin
+  },
+  icCopy: {
+    marginRight: Metrics.baseMargin
   }
 })

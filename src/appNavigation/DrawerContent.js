@@ -24,17 +24,7 @@ class SideMenu extends Component {
   }
 
   onNavigateFshareMovie() {
-    Platform.OS === 'ios' ? (
-      Toast.show('Currently, this feature is not support fshare movie!', {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.CENTER,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-        backgroundColor: Colors.green
-      })
-    ) : NavigationService.navigate('FshareItem')
+    NavigationService.navigate('FshareItem')
     this.props.navigation.closeDrawer()
   }
 

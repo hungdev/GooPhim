@@ -16,6 +16,7 @@ import _ from 'lodash'
 import Orientation from 'react-native-orientation'
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
 import Toast from 'react-native-root-toast'
+import { VLCPlayer, VlCPlayerView } from 'react-native-yz-vlcplayer';
 
 //https://stackoverflow.com/questions/44776798/dynamically-hide-show-header-in-react-native
 
@@ -135,7 +136,7 @@ class MovieScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ height: Metrics.screenWidth, width: '100%' }}>
-          <VideoPlayer
+          {/* <VideoPlayer
             source={{ uri: infoFshareRes.link || 'https://vjs.zencdn.net/v/oceans.mp4' }}
             // source={{ uri: 'https://vjs.zencdn.net/v/oceans.mp4' }}
             controlTimeout={10000}
@@ -144,6 +145,29 @@ class MovieScreen extends React.Component {
             onExitFullscreen={() => this.onExitFullscreen()}
             onError={(err) => this.showMessageBar()}
             onBack={() => this.onBackMovie()}
+          /> */}
+          <VlCPlayerView
+            style={{ height: '100%' }}
+            autoplay={false}               //视频播放结束时调用this.vlcPlayer.resume(false)方法
+            url={infoFshareRes.link || 'https://vjs.zencdn.net/v/oceans.mp4'}           //视频url
+            Orientation={Orientation}
+            // BackHandle={()=> alert('oke')}
+            ggUrl=""                      // 广告url
+            showGG={false}                 // 是否显示广告
+            showTitle={true}              // 是否显示标题
+            title=""                      // 标题
+            showBack={true}               // 是否显示返回按钮
+            onLeftPress={() => { this.props.navigation.goBack()}}          // 返回按钮点击事件
+            startFullScreen={() => {
+              this.setState({
+                isFull: true,
+              });
+            }}
+            closeFullScreen={() => {
+              this.setState({
+                isFull: false,
+              });
+            }}
           />
         </View>
         {
