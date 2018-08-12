@@ -17,6 +17,7 @@ import _ from 'lodash'
 import Orientation from 'react-native-orientation'
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
 import Modal from '../component/Modal'
+import { VLCPlayer, VlCPlayerView } from 'react-native-yz-vlcplayer';
 
 //https://stackoverflow.com/questions/44776798/dynamically-hide-show-header-in-react-native
 
