@@ -13,7 +13,7 @@ import ActivityIndicator from '../component/ActivityIndicator'
 import { Metrics, Images } from '../themes'
 import CustomNavBar from '../appNavigation/CustomNavBar'
 import _ from 'lodash'
-import { Player } from 'react-native-audio-streaming';
+// import { Player } from 'react-native-audio-streaming';
 
 class Bookmarks extends React.Component {
 
@@ -32,19 +32,19 @@ class Bookmarks extends React.Component {
     };
   }
 
-  onplay() {
-    this.playerAudio._onPress()
-  }
+  // onplay() {
+  //   this.playerAudio._onPress()
+  // }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.warpImage}>
-          <TouchableOpacity onPress={() => this.onplay()}>
+          {/* <TouchableOpacity onPress={() => this.onplay()}>
             <Image source={Images.logoXoneFm} style={styles.logoXoneFm} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
-        <Player url={"http://118.69.80.90:8000/live/"} ref={ref => this.playerAudio = ref} />
+        {/* <Player url={"http://118.69.80.90:8000/live/"} ref={ref => this.playerAudio = ref} /> */}
       </View>
     )
   }

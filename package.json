@@ -15,7 +15,6 @@
     "numeral": "^2.0.6",
     "react": "16.4.1",
     "react-native": "0.56.0",
-    "react-native-audio-streaming": "git+https://github.com/tlenclos/react-native-audio-streaming.git",
     "react-native-flash-message": "^0.1.9",
     "react-native-iphone-x-helper": "^1.0.3",
     "react-native-message-bar": "^2.0.10",
