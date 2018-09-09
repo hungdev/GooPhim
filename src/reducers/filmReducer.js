@@ -1,4 +1,5 @@
 import {
+  GET_TREND_FILM, GET_TREND_FILM_SUCCESS, GET_TREND_FILM_FAILED,
   GET_FILMS, GET_FILMS_SUCCESS, GET_FILMS_FAILED,
   GET_INFO_FILMS, GET_INFO_FILMS_SUCCESS, GET_INFO_FILMS_FAILED,
   GET_EPISODE, GET_EPISODE_SUCCESS, GET_EPISODE_FAILED,
@@ -38,6 +39,14 @@ export default (state = initialAuthState, action) => {
     case GET_FILMS_FAILED:
       return { ...state, isFetching: false }
 
+    //Get trend film
+    case GET_TREND_FILM:
+      return { ...state, infoFilm: [], isFetching: true }
+    case GET_TREND_FILM_SUCCESS:
+      return { ...state, infoFilm: action.data, isFetching: false, isSuccess: true }
+    case GET_TREND_FILM_FAILED:
+      return { ...state, isFetching: false, isSuccess: false }
+
     //Get information film
     case GET_INFO_FILMS:
       return { ...state, infoFilm: [], isFetching: true }
@@ -75,8 +84,8 @@ export default (state = initialAuthState, action) => {
     case GET_BL_FILMS:
       return { ...state, blRes: [], isFetching: true }
     case GET_BL_FILMS_SUCCESS:
-    Reactotron.log('rrrrr')
-    Reactotron.log(action.data)
+      Reactotron.log('rrrrr')
+      Reactotron.log(action.data)
       return { ...state, blRes: action.data, isFetching: false, isSuccess: true }
     case GET_BL_FILMS_FAILED:
       return { ...state, isFetching: false, isSuccess: false }

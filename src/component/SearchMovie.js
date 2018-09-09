@@ -9,11 +9,17 @@ import CustomNavbar from '../appNavigation/CustomNavBar'
 import NavigationService from '../appNavigation/NavigationService'
 import CardView from '../component/CardView'
 
+import { connect } from 'react-redux'
+import { getTrendFilm } from '../actions/filmAction'
 import Reactotron from 'reactotron-react-native'
 import { Images, Metrics } from '../themes';
 //onPress={() => NavigationService.navigate('Detail')}
 
-export default class DetailScreen extends React.Component {
+class DetailScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { numCol: 2 };
+  }
   // static navigationOptions = ({ navigation }) => {
   //   const { params = {} } = navigation.state
   //   return {
@@ -27,6 +33,10 @@ export default class DetailScreen extends React.Component {
 
   // }
 
+  componentWillMount() {
+    this.props.getTrendFilm("BL");
+  }
+
   renderMovie(movie) {
     return (
       <TouchableOpacity onPress={() => this.props.callBackMovie(movie)}>
@@ -38,8 +48,35 @@ export default class DetailScreen extends React.Component {
     )
   }
 
+  renderMovieTrend(movie) {
+    return (
+      <TouchableOpacity onPress={() => this.props.callBackMovie(movie)}>
+        <CardView style={styles.cardView}>
+          <Image source={movie && movie.img ? { uri: movie.img } : Images.icMovieLogo} style={styles.imgMovie} />
+          <Text numberOfLines={2}>{movie.title}</Text>
+        </CardView>
+      </TouchableOpacity>
+    )
+  }
+
+  renderTrendMovie(trend) {
+    return (
+      <View>
+        <Text style={{ paddingHorizontal: Metrics.baseMargin, color: 'black', marginTop: 10 }} >
+          {trend.title}
+        </Text>
+        <FlatList
+          style={{ paddingHorizontal: Metrics.baseMargin }}
+          data={trend.data}
+          renderItem={({ item }) => this.renderMovieTrend(item)}
+          horizontal={true}
+        />
+      </View>
+    )
+  }
+
   render() {
-    const { data } = this.props
+    const { data, infoFilm } = this.props
     return (
       <View style={styles.container}>
         <View>
@@ -48,15 +85,31 @@ export default class DetailScreen extends React.Component {
               style={{ paddingHorizontal: Metrics.baseMargin }}
               data={data}
               renderItem={({ item }) => this.renderMovie(item)}
-              numColumns={2}
+              numColumns={this.state.numCol}
+              key={this.state.numCol}
             /> : (
-              <View style={{ height: Metrics.screenHeight, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Ấn vào search ở góc phải để tìm kiếm film</Text>
-              </View>
+              <FlatList
+                data={infoFilm}
+                renderItem={({ item }) => this.renderTrendMovie(item)}
+              />
             )}
         </View>
       </View>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    infoFilm: state.film.infoFilm,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getTrendFilm: (data) => dispatch(getTrendFilm(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailScreen)
 
