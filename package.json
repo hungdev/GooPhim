@@ -14,8 +14,7 @@
     "npm": "^6.3.0",
     "numeral": "^2.0.6",
     "react": "16.4.1",
-    "react-native": "0.56.0",
-    "react-native-audio-streaming": "git+https://github.com/tlenclos/react-native-audio-streaming.git",
+    "react-native": "0.55.4",
     "react-native-flash-message": "^0.1.9",
     "react-native-iphone-x-helper": "^1.0.3",
     "react-native-message-bar": "^2.0.10",
@@ -39,7 +38,7 @@
   },
   "devDependencies": {
     "babel-jest": "23.4.0",
-    "babel-preset-react-native": "^5",
+    "babel-preset-react-native": "4.0.0",
     "jest": "23.4.1",
     "react-test-renderer": "16.4.1",
     "reactotron-react-native": "^2.0.0"
