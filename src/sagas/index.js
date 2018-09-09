@@ -14,5 +14,6 @@ export default function * rootSaga () {
     fork(filmSaga.watchGetXPHIMFilms),
     fork(filmSaga.watchGetFshareFilms),
     fork(filmSaga.watchGetInfoFshareFilm),
+    fork(filmSaga.watchGetTrendFilms),
   ]
 }

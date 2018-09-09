@@ -1,6 +1,7 @@
 import {
   GET_FILMS,
   GET_EPISODE,
+  GET_TREND_FILM,
   GET_INFO_FILMS,
   GET_HDO_FILMS,
   GET_PM_FILMS,
@@ -11,11 +12,18 @@ import {
   GET_FSHARE_FILMS,
   GET_INFO_FSHARE_FILM
 } from './actionTypes'
-// import Reactotron from 'reactotron-react-native'
+import Reactotron from 'reactotron-react-native'
 
 export const getFilms = (data) => {
   return {
     type: GET_FILMS,
+    data
+  }
+}
+
+export const getTrendFilm = (data) => {
+  return {
+    type: GET_TREND_FILM,
     data
   }
 }

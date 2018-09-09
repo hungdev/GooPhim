@@ -1,4 +1,5 @@
 import {
+  GET_TREND_FILM, GET_TREND_FILM_SUCCESS, GET_TREND_FILM_FAILED,
   GET_FILMS, GET_FILMS_SUCCESS, GET_FILMS_FAILED,
   GET_INFO_FILMS, GET_INFO_FILMS_SUCCESS, GET_INFO_FILMS_FAILED,
   GET_EPISODE, GET_EPISODE_SUCCESS, GET_EPISODE_FAILED,
@@ -15,7 +16,7 @@ import {
 import { put, takeLatest, call, throttle } from 'redux-saga/effects'
 
 import {
-  getFshareFilms, getFilms, getEpisodeFilms, getInfoFilms, getHDOFilms,
+  getFshareFilms, getFilms, getEpisodeFilms, getTrendFilms, getInfoFilms, getHDOFilms,
   getPMFilms, getBLFilms, getPBHFilms, getP14Films, getXPHIMFilms, getInfoFshareFilm
 } from './api'
 import NavigationService from '../appNavigation/NavigationService'
@@ -44,6 +45,27 @@ function* callGetEpisodeFilms(action) {
 }
 export function* watchGetEpisodeFilms() {
   yield takeLatest(GET_EPISODE, callGetEpisodeFilms)
+}
+
+//get trend film
+function* callGetTrendFilms(action) {
+  var trend = []
+  try {
+    const result = yield getTrendFilms(action.data)
+
+    trend.push({ title: "Phim hot", data: result.data && result.data.phimhot })
+    trend.push({ title: "Phim Bộ mới", data: result.data && result.data.phimbomoi })
+    trend.push({ title: "Phim lẻ mới", data: result.data && result.data.phimlemoi })
+    trend.push({ title: "Phim hoạt hình", data: result.data && result.data.phimhoathinh })
+    trend.push({ title: "Phim chiếu rạp", data: result.data && result.data.phimchieurap })
+
+    yield put({ type: GET_TREND_FILM_SUCCESS, data: trend })
+  } catch (error) {
+    yield put({ type: GET_TREND_FILM_FAILED, error })
+  }
+}
+export function* watchGetTrendFilms() {
+  yield takeLatest(GET_TREND_FILM, callGetTrendFilms)
 }
 
 //get information film

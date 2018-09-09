@@ -1,5 +1,5 @@
 import { create } from 'apisauce'
-// import Reactotron from 'reactotron-react-native'
+import Reactotron from 'reactotron-react-native'
 
 const api = create({
   baseURL: 'http://api2.goophim.com',
@@ -12,6 +12,11 @@ const api = create({
 })
 
 export function* getFilms(data) { return yield api.post('/sendRequest', data) }
+
+//get trend film
+export function* getTrendFilms(query) {
+  return yield api.get(`/gethome.php?sv=${query}`)
+}
 
 //get information film
 export function* getInfoFilms(query) {

@@ -3,7 +3,7 @@ import { Button, View, Text, AppRegistry } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 
 import { connect } from 'react-redux'
-import { getInfoFilm, getPMFilms, getBLFilms, getHDOFilms, getPBHFilms, getP14Films, getXPHIMFilms } from '../actions/filmAction'
+import { getTrendFilm, getInfoFilm, getPMFilms, getBLFilms, getHDOFilms, getPBHFilms, getP14Films, getXPHIMFilms } from '../actions/filmAction'
 import { onSetMovieSelected} from '../actions/bookMarkAction'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 import SearchMovie from '../component/SearchMovie'
@@ -105,6 +105,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getTrendFilm: (data) => dispatch(getTrendFilm(data)),
     getInfoFilm: (movie) => dispatch(getInfoFilm(movie)),
     getPMFilms: (data) => dispatch(getPMFilms(data)),
     getBLFilms: (data) => dispatch(getBLFilms(data)),
