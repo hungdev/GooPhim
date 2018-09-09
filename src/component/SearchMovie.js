@@ -34,7 +34,7 @@ class DetailScreen extends React.Component {
   // }
 
   componentWillMount() {
-    this.props.getTrendFilm("BL");
+    this.props.getTrendFilm(this.props.channels);
   }
 
   renderMovie(movie) {
@@ -76,7 +76,7 @@ class DetailScreen extends React.Component {
   }
 
   render() {
-    const { data, infoFilm } = this.props
+    const { data, trendFilm } = this.props
     return (
       <View style={styles.container}>
         <View>
@@ -89,7 +89,7 @@ class DetailScreen extends React.Component {
               key={this.state.numCol}
             /> : (
               <FlatList
-                data={infoFilm}
+                data={trendFilm}
                 renderItem={({ item }) => this.renderTrendMovie(item)}
               />
             )}
@@ -101,7 +101,7 @@ class DetailScreen extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    infoFilm: state.film.infoFilm,
+    trendFilm: state.film.trendFilm,
   }
 }
 

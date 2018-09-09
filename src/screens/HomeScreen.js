@@ -73,17 +73,17 @@ class HomeScreen extends React.Component {
           renderTabBar={() => <ScrollableTabBar />}
         >
           <SearchMovie tabLabel='Phim Mới' data={pmRes && pmRes.data || null}
-            callBackMovie={(movie) => this.onGetInfoFilm(movie)} />
+            callBackMovie={(movie) => this.onGetInfoFilm(movie)} channels={"PM"}/>
           <SearchMovie tabLabel='HDOnline' data={hdoRes && hdoRes.data || null}
-            callBackMovie={(movie) => this.onGetInfoFilm(movie)} />
+            callBackMovie={(movie) => this.onGetInfoFilm(movie)} channels={"HDO"}/>
           <SearchMovie tabLabel='BiluTV' data={blRes && blRes.data || null}
-            callBackMovie={(movie) => this.onGetInfoFilm(movie)} />
+            callBackMovie={(movie) => this.onGetInfoFilm(movie)} channels={"BL"}/>
           <SearchMovie tabLabel='Phim Bất Hủ' data={pbhRes && pbhRes.data || null}
-            callBackMovie={(movie) => this.onGetInfoFilm(movie)} />
+            callBackMovie={(movie) => this.onGetInfoFilm(movie)} channels={"PBH"}/>
           <SearchMovie tabLabel='Phim14' data={p14Res && p14Res.data || null}
-            callBackMovie={(movie) => this.onGetInfoFilm(movie)} />
+            callBackMovie={(movie) => this.onGetInfoFilm(movie)} channels={"BL"}/>
           <SearchMovie tabLabel='Xphim' data={xphimRes && xphimRes.data || null}
-            callBackMovie={(movie) => this.onGetInfoFilm(movie)} />
+            callBackMovie={(movie) => this.onGetInfoFilm(movie)} channels={"BL"}/>
         </ScrollableTabView>
       </View>
     )

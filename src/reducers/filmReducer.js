@@ -41,9 +41,9 @@ export default (state = initialAuthState, action) => {
 
     //Get trend film
     case GET_TREND_FILM:
-      return { ...state, infoFilm: [], isFetching: true }
+      return { ...state, trendFilm: [], isFetching: true }
     case GET_TREND_FILM_SUCCESS:
-      return { ...state, infoFilm: action.data, isFetching: false, isSuccess: true }
+      return { ...state, trendFilm: action.data, isFetching: false, isSuccess: true }
     case GET_TREND_FILM_FAILED:
       return { ...state, isFetching: false, isSuccess: false }
 
