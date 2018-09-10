@@ -19,6 +19,7 @@ class DetailScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { numCol: 2 };
+    this.getTrendFilm = this.getTrendFilm.bind(this);
   }
   // static navigationOptions = ({ navigation }) => {
   //   const { params = {} } = navigation.state
@@ -34,7 +35,13 @@ class DetailScreen extends React.Component {
   // }
 
   componentWillMount() {
-    this.props.getTrendFilm(this.props.channels);
+    setTimeout(() => {
+      this.getTrendFilm();
+    }, 0);
+  }
+
+  getTrendFilm(){
+    this.props.getTrendFilm(this.props.channels)
   }
 
   renderMovie(movie) {
