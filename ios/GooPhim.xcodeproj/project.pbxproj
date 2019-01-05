@@ -49,7 +49,6 @@
 		925357E2212014B8000586EB /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 925357E1212014B8000586EB /* libz.1.tbd */; };
 		925357E4212014C5000586EB /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 925357E3212014C5000586EB /* libc++.1.tbd */; };
 		925357E6212014D4000586EB /* libiconv.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 925357E5212014D4000586EB /* libiconv.2.tbd */; };
-		925357E8212014E1000586EB /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 925357E7212014E1000586EB /* libstdc++.6.0.9.tbd */; };
 		925357EA212014EB000586EB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925357E9212014EB000586EB /* MediaPlayer.framework */; };
 		925357EC212014F5000586EB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925357EB212014F5000586EB /* AVFoundation.framework */; };
 		925357EE212014FF000586EB /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925357ED212014FF000586EB /* CoreVideo.framework */; };
@@ -487,7 +486,6 @@
 				925357EC212014F5000586EB /* AVFoundation.framework in Frameworks */,
 				925357EA212014EB000586EB /* MediaPlayer.framework in Frameworks */,
 				925357F82120157C000586EB /* MobileVLCKit.framework in Frameworks */,
-				925357E8212014E1000586EB /* libstdc++.6.0.9.tbd in Frameworks */,
 				925357E6212014D4000586EB /* libiconv.2.tbd in Frameworks */,
 				925357E4212014C5000586EB /* libc++.1.tbd in Frameworks */,
 				925357E2212014B8000586EB /* libz.1.tbd in Frameworks */,
@@ -1571,6 +1569,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1602,6 +1601,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
