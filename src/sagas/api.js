@@ -7,7 +7,6 @@ const api = create({
     Accept: 'application/json',
     'Content-Type': 'application/json'
   },
-  // timeout: 30000
   timeout: 30000
 })
 
@@ -23,40 +22,11 @@ export function* getEpisodeFilms(query) {
   return yield api.get(`/get.php?url=${query}`)
 }
 
-//HDonline
-export function* getHDOFilms(query) {
-  return yield api.get(`/search.php?sv=HDO&key=${query}`)
+
+export function* getFilmBySever(sever, query) {
+  return yield api.get(`/search.php?sv=${sever}&key=${query}`)
 }
 
-//Phim moi
-export function* getPMFilms(query) {
-  return yield api.get(`/search.php?sv=PM&key=${query}`)
-}
-
-//BiluTV
-export function* getBLFilms(query) {
-  return yield api.get(`/search.php?sv=BL&key=${query}`)
-}
-
-//Phim bat hu
-export function* getPBHFilms(query) {
-  return yield api.get(`/search.php?sv=PBH&key=${query}`)
-}
-
-///Phim14
-export function* getP14Films(query) {
-  return yield api.get(`/search.php?sv=P14&key=${query}`)
-}
-
-//xphim.vn
-export function* getXPHIMFilms(query) {
-  return yield api.get(`/search.php?sv=XPHIM&key=${query}`)
-}
-
-//fshare.vn  - get list film fshare
-export function* getFshareFilms(query) {
-  return yield api.get(`/search.php?sv=FSHARE&key=${query}`)
-}
 
 //fshare.vn  - get info film fshare
 export function* getInfoFshareFilm(query) {

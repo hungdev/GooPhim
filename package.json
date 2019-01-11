@@ -28,7 +28,7 @@
     "react-native-vector-icons": "^4.6.0",
     "react-native-video": "^3.0.0",
     "react-native-video-controls": "git+https://github.com/hungdev/react-native-video-controls.git",
-    "react-native-yz-vlcplayer": "^1.0.7",
+    "react-native-yz-vlcplayer": "^1.1.1-beta7",
     "react-navigation": "^2.6.2",
     "react-navigation-slide-from-right-transition": "^1.0.4",
     "react-redux": "^5.0.7",
